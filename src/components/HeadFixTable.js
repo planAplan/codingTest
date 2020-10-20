@@ -203,10 +203,10 @@ export default class HeadFixTable extends Component {
         return (
             <div className="head-fix-table">
                 <div className="tools">
-                    <button onClick={this.handleHiddenChecked}>{hidden ? "Hidden" : "Show"}</button>
+                    <button className="show-or-hide" onClick={this.handleHiddenChecked}>{hidden ? "Hidden" : "Show"}</button>
                     {/* {this.createSelect()} */}
                     <label>
-                        <button onClick={this.handleFilterClick}>filter</button>
+                        <button onClick={this.handleFilterClick}>Fuzzy search</button>
                         <input type="text" onChange={this.handleInputChange}/>
                     </label>
                 </div>
