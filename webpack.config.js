@@ -26,10 +26,11 @@ module.exports = {
             }
         ],
     },
+    mode: "development",
     watch: true,
     watchOptions: {
         aggregateTimeout: 600,
-        ignored: /node_modules/,
+        ignored: ["node_modules/**"],
         poll: 1000
     }
 };

@@ -5,15 +5,15 @@ import './style/headFixTable.sass';
 export default class HeadFixTable extends Component {
     state = {
         hidden: true,
-        head: this.props.head,
-        body: this.props.body,
-        filterKey: this.props.head[0].key,
+        head: JSON.parse(JSON.stringify(this.props.head)),
+        body: JSON.parse(JSON.stringify(this.props.body)),
+        filterKey: false,
     };
 
     refresh = () => {
         this.setState({
-            head: this.props.head,
-            body: this.props.body
+            head: JSON.parse(JSON.stringify(this.props.head)),
+            body: JSON.parse(JSON.stringify(this.props.body))
         });
     }
     getFixHead = () => {
@@ -133,17 +133,23 @@ export default class HeadFixTable extends Component {
     }
     handleSelect = (e) => {
         let v = e.target?.value ?? false;
+        if (!v) return;
+        let {head} = this.state;
         this.setState({
-            filterKey: v
+            filterKey: head.filter(h => h.label === v).key
         })
     }
     createSelect = () => {
         let {head} = this.state;
+        let temp = [{
+            key: false,
+            label: "select to filter",
+        }].concat(head);
         return (
             <label>
                 <select onChange={this.handleSelect}>
                     {
-                        head?.map(h => {return <option value={h.key}>{h.label}</option>})
+                        temp?.map(h => {return <option value={h.key}>{h.label}</option>})
                     }
                 </select>
             </label>
@@ -162,17 +168,27 @@ export default class HeadFixTable extends Component {
         };
         let {body, filterKey} = this.props,
             result = [];
-        body.forEach((b, i) => {
-            let keys = Object.keys(b)
-            for(let i = 0; i < keys.length; i++) {
-                let k = keys[i];
-                if (compareString(this.inputValue, b[k])) {
-                    result.push(b);
-                    continue;
+        if (filterKey) {
+            body.forEach((b, i) => {
+                let str = b[filterKey].toString();
+                console.log(b[filterKey], typeof b[filterKey])
+                if (str.includes(this.inputValue)) {
+                    result.push(b)
                 }
-            }
-        })
-        if (result) {
+            })
+        } else {
+            body.forEach((b, i) => {
+                let keys = Object.keys(b)
+                for(let i = 0; i < keys.length; i++) {
+                    let k = keys[i];
+                    if (compareString(this.inputValue, b[k])) {
+                        result.push(b);
+                        break;
+                    }
+                }
+            })
+        }
+        if (result.length) {
             this.setState({
                 body: result
             })
@@ -188,7 +204,7 @@ export default class HeadFixTable extends Component {
             <div className="head-fix-table">
                 <div className="tools">
                     <button onClick={this.handleHiddenChecked}>{hidden ? "Hidden" : "Show"}</button>
-                    {this.createSelect()}
+                    {/* {this.createSelect()} */}
                     <label>
                         <button onClick={this.handleFilterClick}>filter</button>
                         <input type="text" onChange={this.handleInputChange}/>
