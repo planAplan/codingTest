@@ -1,5 +1,5 @@
 # codingTest
-intervie
+interview
 
 # usage
  step 1.
