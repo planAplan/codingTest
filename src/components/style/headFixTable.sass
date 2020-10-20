@@ -1,0 +1,84 @@
+@mixin head_ul()
+    height: 50px
+    font-weight: 900
+    height: inherit
+    font-weight: 900
+    overflow: hidden
+    overflow-x: auto
+    width: 100%
+    ul
+        height: inherit
+        width: 100px
+@mixin common_li($width)
+    display: inline-block
+    overflow: hidden
+    padding: 5px
+    text-align: center
+    box-sizing: border-box
+    height: 50px
+    border: 1px solid rgb(34, 98, 158)
+    width: $width
+
+.head-fix-table 
+    width: 80%
+    height: 100%
+    margin: 5% auto 0
+    overflow: hidden
+    .fix
+        float: left
+        width: 100px
+        ul.fix-head-wrap
+            height: 50px
+            li
+                @include common_li(50px)
+                background: rgb(234, 204 ,170)
+                span.checkBox_lead
+                    line-height: 40px
+        .fix-body-wrap
+            height: 50px
+            ul
+                li
+                    @include common_li(50px)
+                    overflow: visible
+                    line-height: 40px
+            ul
+                &:nth-child(even)
+                    li
+                        // &:nth-child(even)
+                        background-color: rgb(220, 220, 220)
+    .flex-wrap
+        margin-left: 100px
+        .flex
+            height: inherit
+            overflow-x: auto
+            white-space: nowrap
+            .head-wrap
+                height: 50px
+                li
+                    @include common_li(120px)
+                    background: rgb(234, 204 ,170)
+                    white-space: normal
+            .body-wrap
+                ul
+                    height: 50px
+                    &:nth-child(even)
+                        li
+                            background-color: rgb(220, 220, 220)
+                    li
+                        @include common_li(120px)
+                        line-height: 40px
+                            
+            
+
+
+    // ul
+    //         // overflow: hidden
+    //         display: inline-block
+    //         li
+    //             display: inline-block
+    //             padding: 5px
+    //             text-align: center
+    //             box-sizing: border-box
+    //             height: 50px
+    //             background: rgb(234, 204 ,170)
+    //             border: 1px solid rgb(34, 98, 158)
