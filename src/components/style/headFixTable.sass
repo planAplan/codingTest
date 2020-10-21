@@ -25,9 +25,9 @@
     margin: 5% auto 0
     overflow: hidden
     .tools
-        height: 30px
+        margin-bottom: 10px
         .show-or-hide
-            margin-right: 15px
+            margin-right: 10px
     .fix
         float: left
         width: 100px
@@ -73,3 +73,11 @@
                         @include common_li(120px)
                         line-height: 40px
                         vertical-align: top
+@media screen and ( max-width: 320px  )
+    .head-fix-table 
+        .tools
+            .show-or-hide
+                display: block
+                margin-bottom: 5px
+            label
+                display: block
