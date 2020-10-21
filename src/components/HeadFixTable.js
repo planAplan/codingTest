@@ -56,7 +56,7 @@ export default class HeadFixTable extends Component {
                 }} type="checkbox"/></li>)
             }
             return (
-                <ul>
+                <ul key={`renderFixBody-${i}`}>
                     {bodys}
                 </ul>
             );
@@ -78,9 +78,9 @@ export default class HeadFixTable extends Component {
     renderFlexBody = () => {
         let {body} = this.state;
         let fixHead = this.getFlexHead()
-        let realBody = body?.map(b => {
+        let realBody = body?.map((b, i) => {
             return (
-                <ul>
+                <ul key={`renderFlexBody-${i}`}>
                     {
                         fixHead.map(h => {
                             return (<li key={h.key} className={h.cls || ''}>{b[h.key]}</li>);
@@ -171,7 +171,6 @@ export default class HeadFixTable extends Component {
         if (filterKey) {
             body.forEach((b, i) => {
                 let str = b[filterKey].toString();
-                console.log(b[filterKey], typeof b[filterKey])
                 if (str.includes(this.inputValue)) {
                     result.push(b)
                 }
